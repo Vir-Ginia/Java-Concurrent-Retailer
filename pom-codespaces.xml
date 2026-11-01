@@ -1,0 +1,149 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>uk.ac.keele.csc20004</groupId>
+  <artifactId>csc20004-firstsit-cw2</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>Computer Retailer</name>
+  <description>CSC-20004 First sit exam 2023/24: Assignment component 2 (50%).</description>
+  <url>https://classroom.github.com/classrooms/157226076-csc20004-2023_24</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- Java version setup -->
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+
+    <!-- Packages version -->
+    <junit.version>5.10.2</junit.version>
+    <jcommander.version>1.82</jcommander.version>
+    <checkstyle.version>3.3.1</checkstyle.version>
+
+    <!-- Maven Surefire Plugin version -->
+    <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+  </properties>
+
+  <dependencies>
+
+    <!-- Maven Dependency for JCommander -->
+    <dependency>
+      <groupId>com.beust</groupId>
+      <artifactId>jcommander</artifactId>
+      <version>${jcommander.version}</version>
+    </dependency>
+
+    <!-- JUnit for testing -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- JUnit Jupiter Engine for testing -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Configuring Maven Surefire Plugin for testing -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+      </plugin>
+
+      <!-- For report (to enable the site lifecycle) -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.12.1</version>
+      </plugin>
+
+      <!-- To generate javadoc -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.6.2</version>
+        <executions>
+          <execution>
+            <id>generate-javadoc</id>
+            <phase>site</phase>
+            <goals>
+              <goal>javadoc</goal>
+            </goals>
+            <configuration>
+              <source>${maven.compiler.source}</source>
+              <!-- Include dependencies' Javadoc -->
+              <includeDependencySources>false</includeDependencySources>
+              <!-- Exclude specific dependencies from Javadoc -->
+              <excludePackageNames>com.beust.jcommander.*</excludePackageNames>
+              <doclet>nl.talsmasoftware.umldoclet.UMLDoclet</doclet>
+              <docletArtifact>
+                <groupId>nl.talsmasoftware</groupId>
+                <artifactId>umldoclet</artifactId>
+                <version>2.1.1</version>
+              </docletArtifact>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Reports, just to specify plugin version -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.5.0</version>
+      </plugin>
+
+      <!-- Enable checking javadoc in verify lifecycle-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${checkstyle.version}</version>
+        <executions>
+          <execution>
+            <id>checkstyle</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <configLocation>checkstyle.xml</configLocation>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <!-- Maven Javadoc Plugin for Reporting -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.6.2</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>javadoc</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+        <configuration>
+          <!-- Javadoc configuration options for reporting -->
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
+</project>
